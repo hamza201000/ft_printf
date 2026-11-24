@@ -6,7 +6,7 @@
 #    By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/21 12:09:53 by haghomar          #+#    #+#              #
-#    Updated: 2026/11/21 17:32:28 by haghomar         ###   ########.fr        #
+#    Updated: 2026/11/23 21:59:26 by haghomar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,10 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC = ft_printf.c \
       ft_prints.c \
 	  ft_printd.c \
+	  ft_printc.c \
+	  ft_printp.c \
+	  ft_printx.c \
+	  ft_printu.c
 	  
 
 OBJ = $(SRC:.c=.o)

@@ -6,19 +6,24 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 23:56:47 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/21 17:05:37 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/22 16:46:17 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_prints(va_list arg)
+int ft_prints(va_list arg)
 {
-	char	*s1;
+	char *s1;
+	int len;
 
 	s1 = va_arg(arg, char *);
-	ft_strlen(s1);
-	// printf("len:%ld\n",ft_strlen(s1));
-	// printf("arg:%s\n",s1);
-	write(1, s1, ft_strlen(s1));
+	if (s1 == NULL)
+	{
+		write(1, "(null)", 6);
+		return 6;
+	}
+	len = (int)ft_strlen(s1);
+	write(1, s1, len);
+	return len;
 }

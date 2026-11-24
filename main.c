@@ -3,14 +3,13 @@
 
 int main(void)
 {
-	
-	ft_printf("%d,%s,%s\n", 4555, "hi", "45");
-	
+	ft_printf("ft_printf 1 :%x\n", 16);
 
-	// printf("%-2dX\n", 4);
-	// printf("%02cX\n", 'c');
-	// printf("%2dX\n", 1234);
-	// printf("%2dX\n", -4);
-	// printf("%02dX\n", -4);
-	// printf("[%5d]\n", 42);
+	printf("printf 2 :%x\n", 16);
+	fflush(stdout);
+
+	ft_printf("ft_printf 3 :%x\n", 4565);
+
+	printf("printf 4 :%x\n", 4565);
+	fflush(stdout);
 }

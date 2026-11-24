@@ -6,16 +6,17 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 23:56:47 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/21 19:12:31 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/22 14:19:35 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_printc(va_list arg)
+int	ft_printc(va_list arg)
 {
 	char	c;
 
-	c = va_arg(arg, char );
+	c = va_arg(arg, int);
 	write(1, &c, 1);
+	return 1;
 }

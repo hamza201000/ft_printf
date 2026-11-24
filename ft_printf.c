@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 16:52:42 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/21 19:14:54 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/24 17:05:53 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@
 int ft_printf(const char *s, ...)
 {
 	va_list args;
-	// int count;
-	int s1;
+	 int count;
 	int i;
 
 	va_start(args, s);
 	i = 0;
+	count=0;
 	// count = sum(s);
 	// printf("count:%d\n", count);
 	while (s[i] != '\0')
@@ -43,23 +43,51 @@ int ft_printf(const char *s, ...)
 		// printf("i:%d\n",i);
 		if (s[i] == '%' && s[i + 1] == 'c')
 		{
-			ft_printc(args);
+			count+=ft_printc(args);
 			i++;
 		}
 		else if (s[i] == '%' && (s[i + 1] == 's'))
 		{
-			ft_prints(args);
+			count+=ft_prints(args);
 			i++;
 		}
 		else if (s[i] == '%' && (s[i + 1] == 'd'))
 		{
-			ft_printd(args);
+			count+=ft_printd(args);
+			i++;
+		}
+		else if (s[i] == '%' && (s[i + 1] == 'p'))
+		{
+			count+=ft_printp(args);
+			i++;
+		}
+		else if (s[i] == '%' && (s[i + 1] == 'x'))
+		{
+			count+=ft_printx(args,"0123456789abcdef");
+			i++;
+		}else if (s[i] == '%' && (s[i + 1] == 'X'))
+		{
+			count+=ft_printx(args,"0123456789ABCDEF");
+			i++;
+		}else if (s[i] == '%' && (s[i + 1] == 'u'))
+		{
+			count+=ft_printu(args);
+			i++;
+		}
+		else if (s[i] == '%' && (s[i + 1] == 'i'))
+		{
+			count+=ft_printd(args);
 			i++;
 		}
 		else
+		{
 			write(1, &s[i], 1);
+			count++;
+		}
 		i++;
 	}
 	va_end(args);
-	return 1;
+	return count;
 }
+
+
