@@ -124,14 +124,50 @@ int main(void)
 
 Test edge cases such as `INT_MIN`, `INT_MAX`, `UINT_MAX`, zero, `NULL`, empty strings, and a lone `%`.
 
+## Key concepts to understand
+
+These are the notions to master to code and defend this project:
+
+- **Variadic functions**: `va_list`, `va_start`, `va_arg`, `va_end`, `va_copy`. How arguments are laid out on the stack/registers and why you must know the type of each argument in advance.
+- **Default argument promotions**: why `char` and `short` are promoted to `int` when passed through `...`.
+- **`write(2)`**: its return value, buffering vs. unbuffered output, why `write` is used instead of `printf`.
+- **Number bases**: decimal vs. hexadecimal conversion, uppercase/lowercase digits.
+- **Signed vs. unsigned integers**: two's complement, `INT_MIN` edge case, why `%u` and `%x` print `UINT_MAX` correctly for negative inputs.
+- **Pointers**: `%p` formatting, `unsigned long` / `uintptr_t`, behaviour with `NULL` (`(nil)` on Linux, `0x0` on macOS).
+- **Static libraries**: `ar rcs`, how `libftprintf.a` is built, Makefile rules (`$(NAME)`, `all`, `clean`, `fclean`, `re`), avoiding unnecessary relinking.
+- **Header files**: include guards, prototypes, allowed includes.
+- **Return value handling**: counting characters and propagating `-1` if `write` fails.
+
 ## Resources
 
-- `man 3 printf`
-- `man 3 stdarg`
-- `man 2 write`
+### Documentation
+
+- `man 3 printf`: official description of the `printf` family.
+- `man 3 stdarg`: `va_start`, `va_arg`, `va_end`, `va_copy`.
+- `man 2 write`: system call used for output.
 - [GNU C Library: Variadic Functions](https://www.gnu.org/software/libc/manual/html_node/Variadic-Functions.html)
-- [Project subject](./en.subject.pdf)
+- [cppreference: `printf`](https://en.cppreference.com/w/c/io/fprintf)
+- [cppreference: `va_arg`](https://en.cppreference.com/w/c/variadic/va_arg)
+- [Wikipedia: Printf format string](https://en.wikipedia.org/wiki/Printf_format_string)
+- [Wikipedia: Two's complement](https://en.wikipedia.org/wiki/Two%27s_complement)
+- [Wikipedia: Hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal)
 
-### AI use
+### Articles and tutorials
 
-AI was used as a learning and writing assistant to help explain concepts and structure this README. Project code was written, tested, and understood by the author.
+- [Variadic functions in C (Learn-C / GeeksforGeeks)](https://www.geeksforgeeks.org/variadic-functions-in-c/)
+- [Tutorialspoint: C Variable Arguments](https://www.tutorialspoint.com/cprogramming/c_variable_arguments.htm)
+- [Unlocking the Mystery of va_list: Understanding Variable Arguments in C (Abdelhalim El Bouaami, Medium)](https://abdelhalimelbouaami.medium.com/unlocking-the-mystery-of-va-list-understanding-variable-arguments-in-c-a7b2323cf6d3)
+- [The GNU C Library Reference Manual, 2.44 (PDF)](https://sourceware.org/glibc/manual/2.44/pdf/libc.pdf)
+- [GNU Make Manual](https://www.gnu.org/software/make/manual/make.html)
+- [`ar` command and static libraries](https://www.geeksforgeeks.org/static-vs-dynamic-libraries/)
+
+### Use of AI
+AI was used as a learning and writing assistant to help explain concepts and structure this README.
+
+Exmples ai use :
+- Explaining concepts: variadic functions, `va_list`, integer promotion, two's complement, number base conversion, static libraries.
+- Answering my questions while I was coding and debugging (for example, the `INT_MIN` case and the `%p` output for `NULL`).
+- Suggesting edge cases to test.
+- Helping to structure and write this README.
+
+Project code was written, tested, and understood by the author.
