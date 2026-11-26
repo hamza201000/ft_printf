@@ -6,21 +6,25 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/22 19:29:39 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/24 19:47:22 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/26 03:21:03 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-int ft_printp(va_list arg)
+int	ft_printp(va_list arg)
 {
-	int len;
-	// unsigned long ptr;
+	unsigned long		x;
+	int					len;
 
-	len=0;
-	// ptr = va_arg(arg, unsigned long);
-	// convert_base16(ptr,"0123456789abcdef");
-	ft_printx(arg,"0123456789abcdef");
-	return len;
+	len = 0;
+	x = va_arg(arg, unsigned long);
+	if (x == 0)
+	{
+		write(1, "(nil)", 5);
+		return (5);
+	}
+	len += ft_print_hex(x, "0123456789abcdef", 'p');
+	return (len);
 }

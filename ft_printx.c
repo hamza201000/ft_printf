@@ -6,14 +6,14 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 17:33:55 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/24 19:41:57 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/26 03:22:08 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-static	size_t nmb_len(long n)
+static size_t	nmb_len(unsigned long long n)
 {
 	size_t	cou;
 
@@ -30,33 +30,57 @@ static	size_t nmb_len(long n)
 	return (cou);
 }
 
-char	*convert_base16(unsigned long x,char *base)
+static	char	*convert_base16(unsigned long x, char *base)
 {
 	char	*hex;
 	int		i;
 	int		len;
-	
+
 	len = nmb_len(x);
-	i = len-1;
+	i = len - 1;
 	hex = malloc((len + 1) * sizeof(char));
-	
+	if (x == 0)
+		hex[0] = '0';
 	while (x > 0)
 	{
 		hex[i] = base[x % 16];
-		x/=16;
+		x /= 16;
 		i--;
 	}
-	hex[len]=0;
-	return hex;
+	hex[len] = 0;
+	return (hex);
 }
 
-int	ft_printx(va_list arg,char *base)
+int	ft_print_hex(unsigned long x, char *base, char flag)
 {
-	unsigned long	x;
-	char			*hex;
+	char	*hex;
+	int		len;
 
-	x = va_arg(arg, unsigned long);
-	hex = convert_base16(x, base);
-	ft_putstr_fd(hex,1);
-	return (int)ft_strlen(hex);
+	hex = NULL;
+	len = 0;
+	if (flag == 'p')
+	{
+		write(1, "0x", 2);
+		len += 2;
+		hex = convert_base16(x, base);
+	}
+	else if (flag == 'x' || flag == 'X')
+		hex = convert_base16((unsigned int)x, base);
+	ft_putstr_fd(hex, 1);
+	len += (int)ft_strlen(hex);
+	free(hex);
+	return (len);
+}
+
+int	ft_printx(va_list arg, char *base, char flag)
+{
+	unsigned int	x;
+	char			*hex;
+	int				len;
+
+	hex = NULL;
+	len = 0;
+	x = va_arg(arg, unsigned int);
+	len = ft_print_hex((unsigned int)x, base, flag);
+	return (len);
 }
