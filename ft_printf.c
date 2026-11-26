@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 16:52:42 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/26 03:16:09 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/26 23:11:23 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	ft_printf(const char *s, ...)
 	va_start(args, s);
 	count = 0;
 	i = 0;
+	if (!s)
+		return (-1);
 	while (s[i])
 	{
 		if (s[i] == '%' && s[i + 1])

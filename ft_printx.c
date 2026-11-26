@@ -6,16 +6,16 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 17:33:55 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/26 03:22:08 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/26 23:36:20 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-static size_t	nmb_len(unsigned long long n)
+static int	nmb_len(unsigned long n)
 {
-	size_t	cou;
+	int	cou;
 
 	cou = 0;
 	if (n == 0)
@@ -39,6 +39,8 @@ static	char	*convert_base16(unsigned long x, char *base)
 	len = nmb_len(x);
 	i = len - 1;
 	hex = malloc((len + 1) * sizeof(char));
+	if (!hex)
+		return (NULL);
 	if (x == 0)
 		hex[0] = '0';
 	while (x > 0)
@@ -66,6 +68,8 @@ int	ft_print_hex(unsigned long x, char *base, char flag)
 	}
 	else if (flag == 'x' || flag == 'X')
 		hex = convert_base16((unsigned int)x, base);
+	if (!hex)
+		return (-1);
 	ft_putstr_fd(hex, 1);
 	len += (int)ft_strlen(hex);
 	free(hex);

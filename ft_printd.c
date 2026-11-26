@@ -6,11 +6,11 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/21 16:00:44 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/26 02:59:04 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/26 22:55:15 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 #include "libft/libft.h"
 
 static	size_t	nmb_len(long n)

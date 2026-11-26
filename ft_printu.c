@@ -6,15 +6,15 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 21:38:20 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/26 03:22:26 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/26 23:33:43 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static	size_t	nmb_len(long n)
+static	int	nmb_len(unsigned int n)
 {
-	size_t	cou;
+	int	cou;
 
 	cou = 0;
 	if (n < 0)
@@ -34,11 +34,13 @@ static	size_t	nmb_len(long n)
 	return (cou);
 }
 
-static	void	ft_putnbr_fd2(unsigned int n, int fd)
+static	int	ft_putnbr_fd(unsigned int n, int fd)
 {
 	char	*nmb;
 
 	nmb = ft_itoa(n);
+	if (!nmb)
+		return (-1);
 	ft_putstr_fd(nmb, fd);
 	free(nmb);
 }
@@ -48,8 +50,11 @@ int	ft_printu(va_list arg)
 	int				len;
 	unsigned int	u;
 
+	len = 0;
 	u = va_arg(arg, unsigned int);
-	len = (int)nmb_len((long)u);
-	ft_putnbr_fd2(u, 1);
+	len = ft_putnbr_fd(u, 1);
+	if (len == -1)
+		return (-1);
+	len = nmb_len(u);
 	return (len);
 }
