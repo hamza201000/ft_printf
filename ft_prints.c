@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 23:56:47 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/27 03:24:39 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 16:06:33 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,10 @@ int	ft_prints(va_list *arg)
 {
 	char	*s1;
 	int		len;
-	int		sc;
 
-	sc=0;
 	s1 = va_arg(*arg, char *);
 	if (s1 == NULL)
-	{
-		sc+=write(1, "(null)", 6);
-		if (sc == -1)
-            return (-1);
-		return (sc);
-	}
+		return (write(1, "(null)", 6));
 	len = (int)ft_strlen(s1);
-	sc += write(1, s1, len);
-	if (sc == -1)
-        return (-1);
-	return (sc);
+	return (write(1, s1, len));
 }

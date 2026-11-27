@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 16:48:38 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/27 03:25:41 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 15:10:34 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@ int	ft_printp(va_list *arg);
 int	ft_printu(va_list *arg);
 int	ft_print_hex(unsigned long x, char *base, char flag);
 int	ft_fd_putstr(char *s, int fd);
-
 
 #endif

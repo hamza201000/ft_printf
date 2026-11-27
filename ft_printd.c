@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/21 16:00:44 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/27 03:24:48 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 16:07:09 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ static int	ft_fd_putnbr(int n, int fd)
 int	ft_printd(va_list *arg)
 {
 	int	d;
-	int	sc;
 
-	sc = 0;
 	d = va_arg(*arg, int);
-	sc += ft_fd_putnbr(d, 1);
-	return (sc);
+	return (ft_fd_putnbr(d, 1));
 }
