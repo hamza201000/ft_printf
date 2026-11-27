@@ -6,22 +6,20 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 17:33:55 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/27 16:08:45 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 17:15:01 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-static int nmb_len(unsigned long n)
+static int	nmb_len(unsigned long n)
 {
-	int cou;
+	int	cou;
 
 	cou = 0;
 	if (n == 0)
-	{
 		cou++;
-	}
 	while (n > 0)
 	{
 		n /= 16;
@@ -30,11 +28,11 @@ static int nmb_len(unsigned long n)
 	return (cou);
 }
 
-static char *convert_base16(unsigned long x, char *base)
+static char	*convert_base16(unsigned long x, char *base)
 {
-	char *hex;
-	int i;
-	int len;
+	char	*hex;
+	int		i;
+	int		len;
 
 	len = nmb_len(x);
 	i = len - 1;
@@ -53,10 +51,10 @@ static char *convert_base16(unsigned long x, char *base)
 	return (hex);
 }
 
-int ft_print_hex(unsigned long x, char *base, char flag)
+int	ft_print_hex(unsigned long x, char *base, char flag)
 {
-	char *hex;
-	int sc;
+	char	*hex;
+	int		sc;
 
 	hex = NULL;
 	sc = 0;
@@ -65,11 +63,11 @@ int ft_print_hex(unsigned long x, char *base, char flag)
 		hex = convert_base16(x, base);
 		if (!hex)
 			return (-1);
-		sc+=write(1, "0x", 2);
+		sc += write(1, "0x", 2);
 		if (sc == -1)
 		{
-			free(hex);	
-            return (-1);
+			free(hex);
+			return (-1);
 		}
 	}
 	else if (flag == 'x' || flag == 'X')
@@ -81,9 +79,9 @@ int ft_print_hex(unsigned long x, char *base, char flag)
 	return (sc);
 }
 
-int ft_printx(va_list *arg, char *base, char flag)
+int	ft_printx(va_list *arg, char *base, char flag)
 {
-	unsigned int x;
+	unsigned int	x;
 
 	x = va_arg(*arg, unsigned int);
 	return (ft_print_hex((unsigned int)x, base, flag));

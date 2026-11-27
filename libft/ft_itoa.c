@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/30 18:53:36 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/03 20:58:12 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 16:58:36 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_cnv(char *nmb, long n, size_t n_len)
 	return (nmb);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(long n)
 {
 	char	*nmb;
 	size_t	n_len;
