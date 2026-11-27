@@ -6,19 +6,19 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 23:56:47 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/27 02:17:03 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 03:24:31 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printc(va_list arg)
+int	ft_printc(va_list *arg)
 {
 	char	c;
 	int 	sc;
 	
 	sc = 0;
-	c = va_arg(arg, int);
+	c = va_arg(*arg, int);
 	sc+=write(1, &c, 1);
 	if (sc == -1)
         return (-1);

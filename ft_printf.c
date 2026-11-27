@@ -6,13 +6,13 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 16:52:42 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/27 02:38:10 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 03:24:06 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_check_format(char c, va_list args)
+static int	ft_check_format(char c, va_list *args)
 {
 	if (c == 'c')
 		return (ft_printc(args));
@@ -31,16 +31,22 @@ static int	ft_check_format(char c, va_list args)
 	return (0);
 }
 
-static int	ft_handle_percent(const char *s, int *i, va_list args)
+static int	ft_handle_percent(const char *s, int *i, va_list *args)
 {
 	if (s[*i + 1] == '%')
 	{
-		write(1, "%", 1);
 		(*i)++;
-		return (1);
+		return (write(1, "%", 1));
 	}
 	(*i)++;
 	return (ft_check_format(s[*i], args));
+}
+
+static int	ft_process(const char *s, int *i, va_list *args)
+{
+	if (s[*i] == '%' && s[*i + 1])
+		return (ft_handle_percent(s, i, args));
+	return (write(1, &s[*i], 1));
 }
 
 int	ft_printf(const char *s, ...)
@@ -49,34 +55,21 @@ int	ft_printf(const char *s, ...)
 	int		count;
 	int		i;
 	int		res;
-	
-	count = 0;
-	i = 0;
-	res = 0;
+
 	if (!s)
 		return (-1);
 	va_start(args, s);
+	count = 0;
+	i = 0;
 	while (s[i])
 	{
-		if (s[i] == '%' && s[i + 1])
+		res = ft_process(s, &i, &args);
+		if (res < 0)
 		{
-			res = ft_handle_percent(s, &i, args);
-			if (res < 0)
-			{
-				va_end(args);
-				return (-1);
-			}
-			count += res;
+			va_end(args);
+			return (-1);
 		}
-		else
-		{	
-			count+=write(1, &s[i], 1);
-			if (count==-1)
-			{	
-				va_end(args);
-				return (-1);
-			}
-		}		
+		count += res;
 		i++;
 	}
 	va_end(args);

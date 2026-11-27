@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 17:33:55 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/27 02:29:22 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 03:25:02 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ int ft_print_hex(unsigned long x, char *base, char flag)
 	return (sc);
 }
 
-int ft_printx(va_list arg, char *base, char flag)
+int ft_printx(va_list *arg, char *base, char flag)
 {
 	unsigned int x;
 	int sc;
 
 	sc = 0;
-	x = va_arg(arg, unsigned int);
+	x = va_arg(*arg, unsigned int);
 	sc = ft_print_hex((unsigned int)x, base, flag);
 	return (sc);
 }
