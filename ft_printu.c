@@ -6,55 +6,48 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 21:38:20 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/26 23:33:43 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 01:39:15 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static	int	nmb_len(unsigned int n)
+int	ft_fd_putstr(char *s, int fd)
 {
-	int	cou;
+	int sc;
 
-	cou = 0;
-	if (n < 0)
+	sc = 0;
+	if ((!s))
+		return (-1);
+	while (*s)
 	{
-		cou++;
-		n *= -1;
+		sc+=write(fd, s, 1);
+		s++;
 	}
-	else if (n == 0)
-	{
-		cou++;
-	}
-	while (n > 0)
-	{
-		n /= 10;
-		cou++;
-	}
-	return (cou);
+	return (sc);
 }
 
-static	int	ft_putnbr_fd(unsigned int n, int fd)
+static int	ft_fd_putnbr(unsigned int n, int fd)
 {
 	char	*nmb;
-
-	nmb = ft_itoa(n);
+	int		sc;
+	
+	sc = 0;
+	nmb = ft_itoa((long)n);
 	if (!nmb)
 		return (-1);
-	ft_putstr_fd(nmb, fd);
+	sc = ft_fd_putstr(nmb, fd);
 	free(nmb);
+	return (sc);
 }
 
 int	ft_printu(va_list arg)
 {
-	int				len;
+	int				sc;
 	unsigned int	u;
 
-	len = 0;
+	sc = 0;
 	u = va_arg(arg, unsigned int);
-	len = ft_putnbr_fd(u, 1);
-	if (len == -1)
-		return (-1);
-	len = nmb_len(u);
-	return (len);
+	sc = ft_fd_putnbr((unsigned int)u, 1);
+	return (sc);
 }

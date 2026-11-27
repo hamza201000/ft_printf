@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 16:52:42 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/26 23:11:23 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 01:02:48 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,28 @@ int	ft_printf(const char *s, ...)
 	va_list	args;
 	int		count;
 	int		i;
-
+	int		res;
+	
 	va_start(args, s);
 	count = 0;
 	i = 0;
+	res = 0;
 	if (!s)
 		return (-1);
 	while (s[i])
 	{
 		if (s[i] == '%' && s[i + 1])
-			count += ft_handle_percent(s, &i, args);
-		else
 		{
-			write(1, &s[i], 1);
-			count++;
+			res = ft_handle_percent(s, &i, args);
+			if (res < 0)
+			{
+				va_end(args);
+				return (-1);
+			}
+			count += res;
 		}
+		else
+			count+=write(1, &s[i], 1);
 		i++;
 	}
 	va_end(args);

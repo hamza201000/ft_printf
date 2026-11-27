@@ -6,42 +6,34 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/21 16:00:44 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/26 22:55:15 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 01:39:29 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-static	size_t	nmb_len(long n)
+static int	ft_fd_putnbr(int n, int fd)
 {
-	size_t	cou;
-
-	cou = 0;
-	if (n < 0)
-	{
-		cou++;
-		n *= -1;
-	}
-	else if (n == 0)
-	{
-		cou++;
-	}
-	while (n > 0)
-	{
-		n /= 10;
-		cou++;
-	}
-	return (cou);
+	char	*nmb;
+	int		sc;
+	
+	sc = 0;
+	nmb = ft_itoa((long)n);
+	if (!nmb)
+		return (-1);
+	sc = ft_fd_putstr(nmb, fd);
+	free(nmb);
+	return (sc);
 }
 
 int	ft_printd(va_list arg)
 {
 	int	d;
-	int	len;
+	int	sc;
 
+	sc = 0;
 	d = va_arg(arg, int);
-	len = (int)nmb_len((long)d);
-	ft_putnbr_fd(d, 1);
-	return (len);
+	sc += ft_fd_putnbr(d, 1);
+	return (sc);
 }

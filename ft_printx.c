@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 17:33:55 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/26 23:56:50 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 01:44:40 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,37 +56,35 @@ static char *convert_base16(unsigned long x, char *base)
 int ft_print_hex(unsigned long x, char *base, char flag)
 {
 	char *hex;
-	int len;
+	int sc;
 
 	hex = NULL;
-	len = 0;
+	sc = 0;
 	if (flag == 'p')
 	{
 		hex = convert_base16(x, base);
 		if (!hex)
 			return (-1);
-		write(1, "0x", 2);
-		len += 2;
+		sc+=write(1, "0x", 2);
 	}
 	else if (flag == 'x' || flag == 'X')
 		hex = convert_base16((unsigned int)x, base);
 	if (!hex)
 		return (-1);
-	ft_putstr_fd(hex, 1);
-	len += (int)ft_strlen(hex);
+	sc += ft_fd_putstr(hex, 1);
 	free(hex);
-	return (len);
+	return (sc);
 }
 
 int ft_printx(va_list arg, char *base, char flag)
 {
 	unsigned int x;
 	char *hex;
-	int len;
+	int sc;
 
 	hex = NULL;
-	len = 0;
+	sc = 0;
 	x = va_arg(arg, unsigned int);
-	len = ft_print_hex((unsigned int)x, base, flag);
-	return (len);
+	sc = ft_print_hex((unsigned int)x, base, flag);
+	return (sc);
 }

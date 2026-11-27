@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/20 23:56:47 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/26 02:58:38 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 01:08:19 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int	ft_printc(va_list arg)
 {
 	char	c;
-
+	int 	sc;
+	
+	sc = 0;
 	c = va_arg(arg, int);
-	write(1, &c, 1);
-	return (1);
+	sc+=write(1, &c, 1);
+	return (sc);
 }
