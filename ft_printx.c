@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 17:33:55 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/27 01:44:40 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 02:29:22 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int ft_print_hex(unsigned long x, char *base, char flag)
 		if (!hex)
 			return (-1);
 		sc+=write(1, "0x", 2);
+		if (sc == -1)
+            return (-1);
 	}
 	else if (flag == 'x' || flag == 'X')
 		hex = convert_base16((unsigned int)x, base);
@@ -79,10 +81,8 @@ int ft_print_hex(unsigned long x, char *base, char flag)
 int ft_printx(va_list arg, char *base, char flag)
 {
 	unsigned int x;
-	char *hex;
 	int sc;
 
-	hex = NULL;
 	sc = 0;
 	x = va_arg(arg, unsigned int);
 	sc = ft_print_hex((unsigned int)x, base, flag);

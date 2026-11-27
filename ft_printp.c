@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/22 19:29:39 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/27 01:57:57 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 02:39:00 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int	ft_printp(va_list arg)
 	if (x == NULL)
 	{
 		sc += write(1, "(nil)", 5);
-		return (5);
+		if (sc == -1)
+            return (-1);
+		return (sc);
 	}
 	sc += ft_print_hex((unsigned long)x, "0123456789abcdef", 'p');
 	return (sc);

@@ -5,7 +5,7 @@
 int main()
 {
 
-	ft_printf("%d\n", -1);
-	printf("%d\n", -1);
+	ft_printf("%u\n", -1);
+	printf("%u\n", -1);
 	
 }

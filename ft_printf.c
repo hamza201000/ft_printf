@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 16:52:42 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/27 01:02:48 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 02:38:10 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ int	ft_printf(const char *s, ...)
 	int		i;
 	int		res;
 	
-	va_start(args, s);
 	count = 0;
 	i = 0;
 	res = 0;
 	if (!s)
 		return (-1);
+	va_start(args, s);
 	while (s[i])
 	{
 		if (s[i] == '%' && s[i + 1])
@@ -69,7 +69,14 @@ int	ft_printf(const char *s, ...)
 			count += res;
 		}
 		else
+		{	
 			count+=write(1, &s[i], 1);
+			if (count==-1)
+			{	
+				va_end(args);
+				return (-1);
+			}
+		}		
 		i++;
 	}
 	va_end(args);

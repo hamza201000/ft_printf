@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 21:38:20 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/27 01:39:15 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 02:19:33 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	ft_fd_putstr(char *s, int fd)
 	while (*s)
 	{
 		sc+=write(fd, s, 1);
+		if (sc == -1)
+            return (-1);
 		s++;
 	}
 	return (sc);
@@ -48,6 +50,6 @@ int	ft_printu(va_list arg)
 
 	sc = 0;
 	u = va_arg(arg, unsigned int);
-	sc = ft_fd_putnbr((unsigned int)u, 1);
+	sc = ft_fd_putnbr(u, 1);
 	return (sc);
 }
