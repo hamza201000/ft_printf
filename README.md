@@ -169,5 +169,67 @@ Exmples ai use :
 - Answering my questions while I was coding and debugging (for example, the `INT_MIN` case and the `%p` output for `NULL`).
 - Suggesting edge cases to test.
 - Helping to structure and write this README.
+## Algorithm and data structure
+
+### Overall design: single pass with a dispatcher
+`ft_printf` reads the format string once, from left to right.
+Each character is handled as follows:
+
+1. If it is a normal character, it is written directly with `write`.
+2. If it is `%`, the next character selects a conversion handler
+   (`ft_check_format`), which pulls the matching argument from the
+   `va_list` and prints it.
+3. Every handler returns the number of bytes written (or `-1` on error).
+   `ft_printf` adds these to a running counter and stops immediately
+   with `-1` if any handler fails.
+
+**Why this design:** a single pass needs no intermediate storage for the
+whole output, so memory use does not depend on the format string length.
+The dispatcher keeps each conversion in its own small function, which
+makes the code easy to test and extend (for example, adding a new
+conversion is one new `else if` and one new function).
+
+### Data structure: `va_list` passed by pointer
+The only data structure is the `va_list`, which is a cursor over the
+variadic arguments. It is passed as `va_list *` to the handlers so that
+every `va_arg` call advances the same cursor. Passing it by value would
+leave the caller's copy at the old position, and arguments would be read
+twice or in the wrong order. `va_start` and `va_end` are called once, in
+`ft_printf`, and `va_end` is also called on the error path.
+
+### Number conversion: buffer filled from the end
+For `%d`, `%i` and `%u`, the number is converted by `ft_itoa`, which
+takes a `long`. This lets one function handle both `INT_MIN` (negating
+it as an `int` would overflow) and values up to `UINT_MAX`.
+
+For `%x`, `%X` and `%p`, `convert_base16`:
+
+1. computes the number of digits (`nmb_len`, dividing by 16);
+2. allocates exactly `len + 1` bytes;
+3. fills the buffer from the last digit to the first with
+   `base[x % 16]`, then divides `x` by 16.
+
+Filling from the end avoids a reversal step, so each digit is
+computed once and the digits come out in the correct order.
+The `base` string (`"0123456789abcdef"` or `"0123456789ABCDEF"`)
+is a lookup table, so `%x` and `%X` share the same code.
+`%p` uses `unsigned long` so the whole pointer fits on 64-bit systems,
+and prints `(nil)` for `NULL`, matching glibc on Linux.
+
+### Why a heap buffer and not recursion
+Recursion would need no `malloc`, but it would call `write` once per
+digit, which is slow and makes error handling harder (the count must be
+accumulated across the recursive calls). A heap buffer allows one
+`write` call per number and a single error check.
+The cost is one allocation, so every path frees the buffer:
+- after a successful write,
+- when the write fails,
+- when `write` of the `0x` prefix fails.
+No other function allocates, so there is exactly one owner and one `free`
+for each buffer, which prevents leaks and double frees.
+
+### Error handling
+Every `write` result is checked. A failure is propagated as `-1`,
+and `ft_printf` stops printing and returns `-1`.
 
 Project code was written, tested, and understood by the author.

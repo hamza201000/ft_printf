@@ -6,7 +6,7 @@
 /*   By: haghomar <haghomar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/23 17:33:55 by haghomar          #+#    #+#             */
-/*   Updated: 2026/11/27 17:15:01 by haghomar         ###   ########.fr       */
+/*   Updated: 2026/11/27 18:29:06 by haghomar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_print_hex(unsigned long x, char *base, char flag)
 		hex = convert_base16(x, base);
 		if (!hex)
 			return (-1);
-		sc += write(1, "0x", 2);
+		sc = write(1, "0x", 2);
 		if (sc == -1)
 		{
 			free(hex);
@@ -74,7 +74,7 @@ int	ft_print_hex(unsigned long x, char *base, char flag)
 		hex = convert_base16((unsigned int)x, base);
 	if (!hex)
 		return (-1);
-	sc += ft_fd_putstr(hex, 1);
+	sc = ft_fd_putstr(hex, 1);
 	free(hex);
 	return (sc);
 }
